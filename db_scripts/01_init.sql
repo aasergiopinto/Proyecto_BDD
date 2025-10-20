@@ -1,3 +1,5 @@
+CREATE DATABASE proyecto_bdd;
+
 CREATE TABLE productos (
 
 id_producto INT PRIMARY KEY,
