@@ -84,3 +84,4 @@ id_accion_comercial INT,
 FOREIGN KEY (id_accion_comercial) REFERENCES accion_comercial(id_accion)
 
 );
+

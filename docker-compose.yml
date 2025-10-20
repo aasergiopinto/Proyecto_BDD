@@ -22,7 +22,7 @@ services:
       # 1. Named Volume (Persistence for Database Data)
       - postgres_data:/var/lib/postgresql/data
       # 2. Bind Mount (Injecting the initialization directory with all scripts)
-      - ./db_scripts:/docker-entrypoint-initdb.d
+      - ./db_scripts/init.sql:/docker-entrypoint-initdb.d/init.sql
       
     # Restart the container if it exits, unless manually stopped
     restart: always
