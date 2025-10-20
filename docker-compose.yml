@@ -15,7 +15,7 @@ services:
       # The initial user to be created
       POSTGRES_USER: postgres
       # The password for the user (CHANGE THIS IN PRODUCTION!)
-      POSTGRES_PASSWORD: new2me!
+      POSTGRES_PASSWORD: 1234
       
     # Use a named volume AND a bind mount
     volumes:
