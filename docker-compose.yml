@@ -1,0 +1,63 @@
+# Use postgres/example user/password credentials
+
+services:
+
+  db:
+    image: postgres
+    restart: always
+    # set shared memory limit when using docker compose
+    shm_size: 128mb
+    # or set shared memory limit when deploy via swarm stack
+    #volumes:
+    #  - type: tmpfs
+    #    target: /dev/shm
+    #    tmpfs:
+    #      size: 134217728 # 128*2^20 bytes = 128Mb
+    environment:
+      POSTGRES_PASSWORD: example
+
+  adminer:
+    image: adminer:latest
+    restart: always
+    ports:
+      - 8080:8080
+    depends_on:
+      db:
+        version: '3.8'
+
+        services:
+          db:
+            image: postgres:15-alpine
+            restart: always
+            environment:
+              POSTGRES_USER: postgres
+              POSTGRES_DB: proyecto_bdd
+              POSTGRES_PASSWORD: example
+            volumes:
+              - db_data:/var/lib/postgresql/data
+              - ./init-db:/docker-entrypoint-initdb.d:ro
+            ports:
+              - "5432:5432"
+            healthcheck:
+              test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER}"]
+              interval: 10s
+              timeout: 5s
+              retries: 5
+
+          adminer:
+            image: adminer:latest
+            restart: always
+            ports:
+              - "8080:8080"
+            depends_on:
+              - db
+
+        volumes:
+          db_data: {}
+
+        # Notes:
+        # - SQL scripts placed in `./init-db/` are executed only when the Postgres data
+        #   directory is empty (first container start). To re-run initialization, remove
+        #   the `db_data` volume: `docker volume rm proyecto_bdd_db_data` (or use the
+        #   short name shown by `docker volume ls`).
+        # - Update `POSTGRES_PASSWORD` before using this in production.
