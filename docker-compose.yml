@@ -24,7 +24,7 @@ services:
 
       - ./db_scripts:/docker-entrypoint-initdb.d
 
-      - ./maintenance_scripts:/tmp/scripts
+      - ./scripts:/tmp/scripts
       
     # Restart the container if it exits, unless manually stopped
     restart: always
