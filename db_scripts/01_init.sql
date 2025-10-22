@@ -56,7 +56,7 @@ FOREIGN KEY (id_accion_comercial) REFERENCES accion_comercial(id_accion)
 
 CREATE TABLE clientes (
 
-rut INT PRIMARY KEY,
+rut VARCHAR(14) PRIMARY KEY,
 nombre VARCHAR(100),
 fecha_nacimiento DATE NOT NULL,
 ingresos_mensuales INT,
@@ -64,11 +64,12 @@ apellido_paterno VARCHAR(100),
 apellido_materno VARCHAR(100),
 id_segmento INT,
 FOREIGN KEY (id_segmento) REFERENCES segmentos(id_segmento)
+
 );
 
 CREATE TABLE telefono_cliente (
 
-rut_cliente INT,
+rut_cliente VARCHAR(14),
 FOREIGN KEY (rut_cliente) REFERENCES clientes(rut),
 telefono VARCHAR(100)
 
