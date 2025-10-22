@@ -20,7 +20,7 @@ services:
     # Use a named volume AND a bind mount
     volumes:
       # 1. Named Volume (Persistence for Database Data)
-      - postgres_data:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql
 
       - ./db_scripts:/docker-entrypoint-initdb.d
 
