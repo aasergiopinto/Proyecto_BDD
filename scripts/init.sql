@@ -2,8 +2,7 @@ CREATE TABLE producto (
     id_producto INT PRIMARY KEY,
     nombre_producto VARCHAR(100) NOT NULL,
     tipo VARCHAR(100) NOT NULL,
-    fecha_lanzamiento DATE NOT NULL,
-    valor INT NOT NULL
+    fecha_lanzamiento DATE NOT NULL    
 );
 
 CREATE TABLE accion_comercial (

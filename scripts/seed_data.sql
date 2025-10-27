@@ -1,9 +1,7 @@
 -- Productos
-INSERT INTO producto (id_producto, nombre_producto, tipo, fecha_lanzamiento, valor) VALUES
-(1, 'Cuenta Más Lucas', 'Cuenta Vista', '2023-01-01', 0),
-(2, 'Plan Estudiantil', 'Cuenta Vista', '2022-01-01', 0),
-(3, 'Crédito Hipotecario', 'Crédito Hipotecario', '2023-08-20', 0),
-(4, 'Tarjeta Crédito Futura', 'Cuenta Corriente', '2000-01-01', 60000)
+INSERT INTO producto (id_producto, nombre_producto, tipo, fecha_lanzamiento) VALUES
+(1, 'Crédito Hipotecario', 'Crédito', '2023-08-20'),
+(2, 'Crédito de Consumo', 'Crédito', '2000-01-01');
 
 -- Acciones comerciales
 INSERT INTO accion_comercial (id_accion, nombre_accion, objetivo, presupuesto, fecha_inicio, id_producto) VALUES
