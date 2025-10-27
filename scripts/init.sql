@@ -1,12 +1,12 @@
-CREATE TABLE producto (
-    id_producto INT PRIMARY KEY,
+CREATE TABLE producto_bancario (
+    id_producto_bancario INT PRIMARY KEY,
     nombre_producto VARCHAR(100) NOT NULL,
     tipo VARCHAR(100) NOT NULL,
     fecha_lanzamiento DATE NOT NULL    
 );
 
 CREATE TABLE accion_comercial (
-    id_accion INT PRIMARY KEY,
+    id_accion_comercial INT PRIMARY KEY,
     nombre_accion VARCHAR(150) NOT NULL,
     objetivo TEXT NOT NULL,
     presupuesto INT NOT NULL,
@@ -16,14 +16,14 @@ CREATE TABLE accion_comercial (
 );
 
 CREATE TABLE canal_difusion (
-    id_canal INT PRIMARY KEY,
+    id_canal_difusion INT PRIMARY KEY,
     nombre_canal VARCHAR(100) NOT NULL,
     tipo VARCHAR(100) NOT NULL
 );
 
 CREATE TABLE utiliza (
     id_accion_comercial INT,
-    id_canal INT,
+    id_canal_difusion INT,
     FOREIGN KEY (id_accion_comercial) REFERENCES accion_comercial(id_accion),
     FOREIGN KEY (id_canal) REFERENCES canal_difusion(id_canal)
 );
