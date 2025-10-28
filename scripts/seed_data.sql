@@ -42,7 +42,7 @@ INSERT INTO telefono_cliente (rut_cliente, telefono) VALUES
 ('33.333.333-3', '+56933333333');
 
 -- Resultados
-INSERT INTO resultado (id_resultado, tipo_resultado, valor, id_interaccion, id_accion_comercial) VALUES
+INSERT INTO resultado (id_resultado, tipo_resultado, valor, id_accion_comercial) VALUES
 (1, 'Ventas', 120, NULL, 1),
 (2, 'Leads generados', 300, NULL, 2),
 (3, 'Clientes nuevos', 80, NULL, 3);

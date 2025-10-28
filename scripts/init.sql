@@ -10,9 +10,11 @@ CREATE TABLE accion_comercial (
     nombre_accion VARCHAR(150) NOT NULL,
     objetivo TEXT NOT NULL,
     presupuesto INT NOT NULL,
+    exito_esperado FLOAT,
     fecha_inicio DATE NOT NULL,
-    id_producto INT,
-    FOREIGN KEY (id_producto) REFERENCES producto(id_producto)
+    fecha_termino DATE,
+    id_producto_bancario INT,
+    FOREIGN KEY (id_producto_bancario) REFERENCES producto_bancario(id_producto_bancario)
 );
 
 CREATE TABLE canal_difusion (
@@ -21,11 +23,12 @@ CREATE TABLE canal_difusion (
     tipo VARCHAR(100) NOT NULL
 );
 
-CREATE TABLE utiliza (
+CREATE TABLE accion_canal (
     id_accion_comercial INT,
     id_canal_difusion INT,
-    FOREIGN KEY (id_accion_comercial) REFERENCES accion_comercial(id_accion),
-    FOREIGN KEY (id_canal) REFERENCES canal_difusion(id_canal)
+    PRIMARY KEY (id_accion_comercial, id_canal_difusion),
+    FOREIGN KEY (id_accion_comercial) REFERENCES accion_comercial(id_accion_comercial),
+    FOREIGN KEY (id_canal_difusion) REFERENCES canal_difusion(id_canal_difusion)
 );
 
 CREATE TABLE segmento (
@@ -35,11 +38,20 @@ CREATE TABLE segmento (
     criterios TEXT NOT NULL
 );
 
-CREATE TABLE dirigido (
+CREATE TABLE cliente_segmento (
+    id_segmento INT,
+    id_cliente INT,
+    PRIMARY KEY (id_segmento, id_cliente),
+    FOREIGN KEY (id_segmento) REFERENCES segmento(id_segmento),
+    FOREIGN KEY (id_cliente) REFERENCES cliente(id_cliente) 
+);
+
+CREATE TABLE segmento_accion (
     id_segmento INT,
     id_accion_comercial INT,
+    PRIMARY KEY (id_segmento, id_accion_comercial),
     FOREIGN KEY (id_segmento) REFERENCES segmento(id_segmento),
-    FOREIGN KEY (id_accion_comercial) REFERENCES accion_comercial(id_accion)
+    FOREIGN KEY (id_accion_comercial) REFERENCES accion_comercial(id_accion_comercial)
 );
 
 CREATE TABLE cliente (
@@ -56,14 +68,16 @@ CREATE TABLE cliente (
 CREATE TABLE telefono_cliente (
     rut_cliente VARCHAR(14),
     telefono VARCHAR(100),
+    PRIMARY KEY (rut_cliente, telefono),
     FOREIGN KEY (rut_cliente) REFERENCES cliente(rut)
 );
 
 CREATE TABLE resultado (
     id_resultado INT PRIMARY KEY,
     tipo_resultado VARCHAR(100) NOT NULL,
-    valor INT NOT NULL,
-    id_interaccion INT,
+    clientes_alcanzados INT NOT NULL,
+    rentabilidad INT NOT NULL,
+    coeficiente_exito FLOAT NOT NULL,
     id_accion_comercial INT,
-    FOREIGN KEY (id_accion_comercial) REFERENCES accion_comercial(id_accion)
+    FOREIGN KEY (id_accion_comercial) REFERENCES accion_comercial(id_accion_comercial)
 );
