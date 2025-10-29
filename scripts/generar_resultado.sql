@@ -14,7 +14,7 @@ DECLARE
     v_nombre_accion VARCHAR(150);
     v_clientes_alcanzados INT;
     v_rentabilidad INT;
-    v_coeficiente_exito FLOAT;
+    v_coeficiente_exito NUMERIC;
     v_inversion_recuperada BOOLEAN;
     v_id_resultado INT;
     v_tamano_segmento INT;
@@ -33,7 +33,7 @@ BEGIN
     FROM accion_comercial
     WHERE id_accion_comercial = p_id_accion_comercial;
 
-    IF NOT FOUND THEN
+    IF v_presupuesto IS NULL THEN
         RAISE EXCEPTION 'No existe una acción comercial con id %', p_id_accion_comercial;
     END IF;
 
@@ -51,10 +51,16 @@ BEGIN
 
     v_titulo_resultado := 'Resultado automático para: ' || v_nombre_accion;
 
-    v_clientes_alcanzados := FLOOR(RANDOM() * (v_tamano_segmento - 1 + 1)) + 1; -- Numero al azar entre 0 y el tamaño del segmento
-    v_rentabilidad := FLOOR(RANDOM() * 12000001) - 2000000; -- Numero al azar entre -$2.000.000 y $12.000.000 para simular rentabilidad
-    v_coeficiente_exito := v_rentabilidad / v_clientes_alcanzados;
+    v_clientes_alcanzados := FLOOR(RANDOM() * v_tamano_segmento) + 1; -- Entre 1 y tamano_segmento
 
+    v_rentabilidad := FLOOR(RANDOM() * 12000001) - 2000000; -- Numero al azar entre -$2.000.000 y $12.000.000 para simular rentabilidad
+    
+    IF v_clientes_alcanzados > 0 THEN
+        v_coeficiente_exito := ROUND(v_rentabilidad::NUMERIC / v_clientes_alcanzados, 2)::FLOAT;    
+    ELSE
+        v_coeficiente_exito := 0;
+    END IF;
+    
     -- Verificar si se recuperó la inversión o no.
     IF v_rentabilidad >= v_presupuesto THEN
         v_inversion_recuperada := TRUE;
