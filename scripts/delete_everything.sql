@@ -1,5 +1,0 @@
-BEGIN;
-
-DROP DATABASE proyecto_bdd;
-
-COMMIT;
