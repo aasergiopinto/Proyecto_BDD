@@ -1,4 +1,5 @@
 
+
 DROP TABLE IF EXISTS resultado CASCADE;
 DROP TABLE IF EXISTS telefono_cliente CASCADE;
 DROP TABLE IF EXISTS cliente_segmento CASCADE;
@@ -84,7 +85,7 @@ CREATE TABLE telefono_cliente (
 
 CREATE TABLE resultado (
     id_resultado INT PRIMARY KEY,
-    tipo_resultado VARCHAR(100) NOT NULL,
+    titulo_resultado VARCHAR(100) NOT NULL,
     clientes_alcanzados INT NOT NULL,
     rentabilidad INT NOT NULL,
     coeficiente_exito FLOAT NOT NULL,
@@ -139,7 +140,7 @@ INSERT INTO accion_comercial (id_accion_comercial, nombre_accion, objetivo, pres
 (403, 'Black Friday Cuenta Joven', 'Abrir 5.000 cuentas nuevas', 20000000, 0.05, '2025-11-20', '2025-12-05', 202),
 (404, 'Reactivación Clientes SMS', 'Venta de Hipoteca a clientes inactivos', 1000000, 0.01, '2025-10-15', '2025-11-15', 201);
 
-INSERT INTO resultado (id_resultado, tipo_resultado, clientes_alcanzados, rentabilidad, coeficiente_exito, inversion_recuperada, id_accion_comercial) VALUES
+INSERT INTO resultado (id_resultado, titulo_resultado, clientes_alcanzados, rentabilidad, coeficiente_exito, inversion_recuperada, id_accion_comercial) VALUES
 (501, 'Cierre Q4 Hipoteca', 15000, 150000000, 0.15, TRUE, 401),
 (502, 'Cierre Q4 Inversion', 500, 2500000, 0.05, FALSE, 402),
 (503, 'Cierre Q4 Cta Joven', 2000, 20000000, 0.04, TRUE, 403),

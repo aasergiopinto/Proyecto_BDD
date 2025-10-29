@@ -83,7 +83,7 @@ CREATE TABLE telefono_cliente (
 
 CREATE TABLE resultado (
     id_resultado INT PRIMARY KEY,
-    tipo_resultado VARCHAR(100) NOT NULL,
+    titulo_resultado VARCHAR(100) NOT NULL,
     clientes_alcanzados INT NOT NULL,
     rentabilidad INT NOT NULL,
     coeficiente_exito FLOAT NOT NULL,
