@@ -1,3 +1,6 @@
+-- Stored procedure para generar automaticamente un resultado con valores
+-- aleatorios de una accion comercial
+
 CREATE OR REPLACE PROCEDURE generar_resultado (
     p_id_accion_comercial INT
 )
