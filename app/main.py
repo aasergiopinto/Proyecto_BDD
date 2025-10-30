@@ -9,7 +9,7 @@ from db import (
 def mostrar_menu():
     """Muestra el menú principal"""
     print("\n" + "="*50)
-    print("   SISTEMA DE GESTIÓN - PROYECTO BDD")
+    print("      GESTIÓN DE MARKETING - BANCO FUTURA")
     print("="*50)
     print("1. Ver todos los clientes")
     print("2. Ver acciones comerciales")
