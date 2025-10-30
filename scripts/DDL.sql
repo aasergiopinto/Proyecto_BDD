@@ -1,3 +1,5 @@
+-- DDL
+
 DROP TABLE IF EXISTS resultado CASCADE;
 DROP TABLE IF EXISTS telefono_cliente CASCADE;
 DROP TABLE IF EXISTS cliente_segmento CASCADE;
