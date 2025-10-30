@@ -1,3 +1,5 @@
+-- db.sql mezcla todos los scripts SQL ubicados en ./db
+
 -- #########################
 -- DDL
 -- #########################

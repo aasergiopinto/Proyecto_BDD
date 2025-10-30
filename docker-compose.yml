@@ -16,6 +16,7 @@ services:
       POSTGRES_USER: postgres
       # The password for the user (CHANGE THIS IN PRODUCTION!)
       POSTGRES_PASSWORD: 1234
+      POSTGRES_HOST_AUTH_METHOD: trust
       
     # Use a named volume AND a bind mount
     volumes:
