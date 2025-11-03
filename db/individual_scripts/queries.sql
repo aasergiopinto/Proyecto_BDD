@@ -4,60 +4,61 @@ JOIN cliente_segmento cs ON cl.rut = cs.rut
 JOIN segmento s ON cs.id_segmento = s.id_segmento
 JOIN segmento_accion sa ON s.id_segmento = sa.id_segmento
 JOIN accion_comercial ac ON sa.id_accion_comercial = ac.id_accion_comercial
-JOIN producto pr ON ac.id_producto = pr.id_producto
-GROUP BY c.nombre_cliente
-HAVING pr.nombre_producto = 'Credito Hipotecario Flexible';
+JOIN producto_bancario pr ON ac.id_producto_bancario = pr.id_producto_bancario
+WHERE pr.nombre_producto = 'Credito Hipotecario Flexible';
 
-SELECT 
-    AVG(r.coeficiente_éxito) AS promedio_exito
+
+SELECT AVG(r.coeficiente_exito) AS promedio_exito
 FROM resultado r
-WHERE r.titulo_resultado ILIKE 'exitoso';
-
+WHERE r.coeficiente_exito > 0;
 
 SELECT DISTINCT s.nombre_segmento
-FROM segmentos s
+FROM segmento s
 JOIN segmento_accion sa ON s.id_segmento = sa.id_segmento
-JOIN acción_comercial ac ON sa.id_acción_comercial = ac.id_acción_comercial
-JOIN accion_canal aca ON ac.id_acción_comercial = aca.id_acción_comercial
-JOIN canal_de_difusión c ON aca.id_canal = c.id_canal
-WHERE c.nombre ILIKE 'Email Marketing';
+JOIN accion_comercial ac ON sa.id_accion_comercial = ac.id_accion_comercial
+JOIN accion_canal aca ON ac.id_accion_comercial = aca.id_accion_comercial
+JOIN canal_difusion c ON aca.id_canal_difusion = c.id_canal_difusion
+WHERE c.nombre_canal ILIKE 'Email Marketing';
 
 SELECT 
     s.nombre_segmento,
-    AVG(r.coeficiente_éxito) AS promedio_exito
-FROM segmentos s
+    AVG(r.coeficiente_exito) AS promedio_exito
+FROM segmento s
 JOIN segmento_accion sa ON s.id_segmento = sa.id_segmento
-JOIN acción_comercial ac ON sa.id_acción_comercial = ac.id_acción_comercial
-JOIN productos_bancarios p ON ac.id_producto = p.id_producto
-JOIN resultado r ON ac.id_acción_comercial = r.id_acción_comercial
+JOIN accion_comercial ac ON sa.id_accion_comercial = ac.id_accion_comercial
+JOIN producto_bancario p ON ac.id_producto_bancario = p.id_producto_bancario
+JOIN resultado r ON ac.id_accion_comercial = r.id_accion_comercial
 WHERE p.tipo ILIKE 'Cuenta Joven Digital'
 GROUP BY s.nombre_segmento
 ORDER BY promedio_exito DESC;
 
-SELECT ac.nombre, ac.objetivo, ac.fecha_termino
-FROM acción_comercial ac
-JOIN resultado r ON ac.id_acción_comercial = r.id_acción_comercial
-WHERE r.titulo_resultado ILIKE 'fallido' 
+
+SELECT ac.nombre_accion, ac.objetivo, ac.fecha_termino
+FROM accion_comercial ac
+JOIN resultado r ON ac.id_accion_comercial = r.id_accion_comercial
+WHERE r.coeficiente_exito < 0 
   AND ac.fecha_termino = '2024-01-01';
 
-SELECT DISTINCT c.nombre, c.rut, c.ingresos_mensuales
-FROM clientes c
+
+SELECT DISTINCT c.nombre_cliente, c.rut, c.ingresos_mensuales
+FROM cliente c
 JOIN cliente_segmento cs ON c.rut = cs.rut
-JOIN segmentos s ON cs.id_segmento = s.id_segmento
+JOIN segmento s ON cs.id_segmento = s.id_segmento
 JOIN segmento_accion sa ON s.id_segmento = sa.id_segmento
-JOIN acción_comercial ac ON sa.id_acción_comercial = ac.id_acción_comercial
-JOIN accion_canal aca ON ac.id_acción_comercial = aca.id_acción_comercial
-JOIN canal_de_difusión cd ON aca.id_canal = cd.id_canal
+JOIN accion_comercial ac ON sa.id_accion_comercial = ac.id_accion_comercial
+JOIN accion_canal aca ON ac.id_accion_comercial = aca.id_accion_comercial
+JOIN canal_difusion cd ON aca.id_canal_difusion = cd.id_canal_difusion
 WHERE c.ingresos_mensuales > 4000000
-  AND cd.nombre ILIKE 'instagram';
+  AND cd.nombre_canal ILIKE 'Redes Sociales';
+
 
 SELECT 
-    cd.nombre AS canal,
+    cd.nombre_canal AS canal,
     COUNT(*) AS cantidad_promociones
-FROM canal_de_difusión cd
-JOIN accion_canal aca ON cd.id_canal = aca.id_canal
-JOIN acción_comercial ac ON aca.id_acción_comercial = ac.id_acción_comercial
-JOIN productos_bancarios p ON ac.id_producto = p.id_producto
-WHERE p.tipo ILIKE 'crédito de consumo'
-GROUP BY cd.nombre
+FROM canal_difusion cd
+JOIN accion_canal aca ON cd.id_canal_difusion = aca.id_canal_difusion
+JOIN accion_comercial ac ON aca.id_accion_comercial = ac.id_accion_comercial
+JOIN producto_bancario p ON ac.id_producto_bancario = p.id_producto_bancario
+WHERE p.tipo ILIKE 'Fondo Mutuo Agresivo'
+GROUP BY cd.nombre_canal
 ORDER BY cantidad_promociones DESC;
